@@ -1,7 +1,7 @@
 {
   "name": "sap_budget",
   "version": "1.0.0",
-  "description": "my app fro daddy 1",
+  "description": "my app fro daddy 2",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
