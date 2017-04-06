@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Domco88/SapBudge/issues"
   },
-  "homepage": "https://github.com/Domco88/SapBudge#readme"
+  "homepage": "https://github.com/Domco88/SapBudge#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
 }
