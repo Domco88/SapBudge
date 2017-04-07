@@ -17,6 +17,12 @@
   },
   "homepage": "https://github.com/Domco88/SapBudge#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
+    "mongodb": "^2.2.25",
+    "mongoose": "^4.9.1",
+    "multer": "^1.3.0"
   }
 }
