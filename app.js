@@ -31,4 +31,12 @@
      app.use(myLogger)
 
 // rest operations
+     app.get('/', function (req, res) {
+         res.send('Hello World!')
+     })
 
+
+// server launch
+    app.listen(4000, () => {
+        console.log('Example app listening on port 3000!')
+    })
