@@ -1,14 +1,21 @@
 // load 
-    var express = require("express")
+    const express = require("express")
     const mongoose = require('mongoose')
+    const exphbs = require('express-handlebars')
    
-// app setup
+// app variables
     const app = express()
-
-// mongoDB
     const db = mongoose.connection
 
-    mongoose.connect('mongodb://localhost:27017/test')
+    
+    const myLogger = function (req, res, next) {
+        console.log("passed : ", req.originalUrl, req.method)
+        next()
+    }
+
+// mongoDB
+
+    mongoose.connect('mongodb://localhost:27017/budge')
     mongoose.Promise = global.Promise;
 
     db.on('error', console.error.bind(console, 'connection error:'));
@@ -16,7 +23,12 @@
         console.log('we are connected')
     });
 
+// app.setup
+    app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+    app.set('view engine', 'handlebars');
+
+// app.use
+     app.use(myLogger)
+
 // rest operations
-    app.get('/' (req, res) => {
-        res.send()
-    })
+
