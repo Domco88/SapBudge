@@ -32,11 +32,11 @@
 
 // rest operations
      app.get('/', function (req, res) {
-         res.send('Hello World!')
+         res.render('home')
      })
 
 
 // server launch
     app.listen(4000, () => {
-        console.log('Example app listening on port 3000!')
+        console.log('Example app listening on port 4000!')
     })
