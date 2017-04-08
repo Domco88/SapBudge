@@ -1,7 +1,8 @@
 // load 
     const express = require("express")
     const mongoose = require('mongoose')
-    const exphbs = require('express-handlebars')
+    const expressHbs  = require('express-handlebars')
+    var bodyParser = require("body-parser")
    
 // app variables
     const app = express()
@@ -12,6 +13,11 @@
         console.log("operation : ", req.method, req.url)
         next()
     }
+
+    app.use(myLogger)
+
+    app.use(bodyParser.json())
+    app.use(bodyParser.urlencoded({ extended: true }))
     
 // Router
     const router = express.Router()
@@ -29,23 +35,19 @@
         console.log('we are connected')
     });
 
-// app.setup
-    app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-    app.set('view engine', 'handlebars');
-
-// app.use
-     app.use(myLogger)
+// expressHbs
+    app.engine('hbs', expressHbs ({extname:'hbs', defaultLayout: 'main.hbs' }));
+    app.set('view engine', 'hbs');    
 
 // rest operations
      router.get('/home', (req, res) => {
-         res.render('home')
+         res.render('main/home')
      })
 
      router.get('/', function (req, res) {
          res.send('im the home page!');
      });
 
-     // about page route (http://localhost:8080/about)
      router.get('/about', function (req, res) {
          res.send('im the about page!');
      });
