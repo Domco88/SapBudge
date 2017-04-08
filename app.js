@@ -5,14 +5,20 @@
    
 // app variables
     const app = express()
-    const db = mongoose.connection
-
+    const port    =   process.env.PORT || 4000;
+    const db = mongoose.connection 
     
-    const myLogger = function (req, res, next) {
-        console.log("passed : ", req.originalUrl, req.method)
+    const myLogger = (req, res, next) => {
+        console.log("operation : ", req.method, req.url)
         next()
     }
+    
+// Router
+    const router = express.Router()
+    const temperatures = require('./routes/temperature')
 
+    app.use('/main', router)
+    app.use('/temperature', temperatures)
 // mongoDB
 
     mongoose.connect('mongodb://localhost:27017/budge')
@@ -31,12 +37,20 @@
      app.use(myLogger)
 
 // rest operations
-     app.get('/', function (req, res) {
+     router.get('/home', (req, res) => {
          res.render('home')
      })
 
+     router.get('/', function (req, res) {
+         res.send('im the home page!');
+     });
+
+     // about page route (http://localhost:8080/about)
+     router.get('/about', function (req, res) {
+         res.send('im the about page!');
+     });
+
 
 // server launch
-    app.listen(4000, () => {
-        console.log('Example app listening on port 4000!')
-    })
+    app.listen(port)
+    console.log('Magic happens on port ' + port)
