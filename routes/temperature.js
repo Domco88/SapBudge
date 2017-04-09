@@ -31,5 +31,14 @@ const myLogger = (req, res, next) => {
         })
     })
 
+    router.get('/find', (req, res) => {
+        Temperature
+        .findOne()
+        .sort('-time')
+        .exec(function(err, post) { 
+            console.log( post ) 
+        });
+    })
+
 
 module.exports = router
