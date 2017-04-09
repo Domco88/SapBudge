@@ -35,8 +35,9 @@ const myLogger = (req, res, next) => {
         Temperature
         .findOne()
         .sort('-time')
-        .exec(function(err, post) { 
-            console.log( post ) 
+        .exec(function(err, temperature) { 
+            console.log(temperature)
+            res.render("temperature/latest", {temperature}) 
         });
     })
 
