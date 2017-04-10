@@ -2,7 +2,8 @@
     const express = require("express")
     const mongoose = require('mongoose')
     const expressHbs  = require('express-handlebars')
-    var bodyParser = require("body-parser")
+    const bodyParser = require("body-parser")
+    const mqtt = require('mqtt')
    
 // app variables
     const app = express()
@@ -22,11 +23,12 @@
 // Router
     const router = express.Router()
     const temperatures = require('./routes/temperature')
+    const msgs = require('./routes/msg')
 
     app.use('/main', router)
     app.use('/temperature', temperatures)
+    app.use('/mqtt', msgs)
 // mongoDB
-
     mongoose.connect('mongodb://localhost:27017/budge')
     mongoose.Promise = global.Promise;
 
@@ -38,6 +40,8 @@
 // expressHbs
     app.engine('hbs', expressHbs ({extname:'hbs', defaultLayout: 'main.hbs' }));
     app.set('view engine', 'hbs');    
+
+
 
 // rest operations
      router.get('/home', (req, res) => {

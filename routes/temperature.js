@@ -2,10 +2,6 @@ const express = require("express")
 const router = express.Router()
 const Temperature = require('../models/Temperature')
 
-const myLogger = (req, res, next) => {
-    console.log("operation : ", req.method, req.url)
-    next()
-}
 // routes
     router.get('/hello', (req, res) => {
         res.render('temperature/hello')
@@ -40,6 +36,5 @@ const myLogger = (req, res, next) => {
             res.render("temperature/latest", {temperature}) 
         });
     })
-
 
 module.exports = router
