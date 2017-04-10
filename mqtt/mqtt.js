@@ -5,9 +5,3 @@
     client.on('connect', () => {
         client.subscribe(['/EspTempHum/BMP/Temperature']) // add '/test1',  to testing
     })
-
-    //   basic tested conection console.log
-    // client.on('message', (topic, message) => {
-    //     console.log(message.toString())
-    //     // client.end()
-    // })
