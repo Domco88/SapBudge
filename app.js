@@ -19,11 +19,18 @@
 
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: true }))
+
+    
     
 // Router
     const router = express.Router()
     const temperatures = require('./routes/temperature')
     const msgs = require('./routes/msg')
+
+    app.use('/', express.static('public'))
+    app.get('/', (req, res) => {
+        res.render('index.html')
+    })
 
     app.use('/main', router)
     app.use('/temperature', temperatures)
