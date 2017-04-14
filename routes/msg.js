@@ -12,6 +12,7 @@ mqttClient.on('message', (topic, message) => {
             msg: message
          })
 
+<<<<<<< HEAD
         //   Msg.addMsg(newMsg, (err) => {
         //       if (err) {
         //           console.log('Msg error in writing to DB')
@@ -20,6 +21,16 @@ mqttClient.on('message', (topic, message) => {
         //       }
         //   })
         //   console.log('new Msg added to DB at ' + newMsg.time)
+=======
+          Msg.addMsg(newMsg, (err) => {
+              if (err) {
+                  console.log('Msg error in writing to DB')
+              } else {
+                  console.log('Msg registered')
+              }
+          })
+          console.log('new Msg added to DB at ' + newMsg.time)
+>>>>>>> 52c9dfd1dac5e080e7acde83529c2f02cb5bea17
 
     })
 

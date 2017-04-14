@@ -24,7 +24,11 @@
     "mongodb": "^2.2.25",
     "mongoose": "^4.9.1",
     "mqtt": "^2.6.1",
+<<<<<<< HEAD
     "multer": "^1.3.0",
     "socket.io": "^1.7.3"
+=======
+    "multer": "^1.3.0"
+>>>>>>> 52c9dfd1dac5e080e7acde83529c2f02cb5bea17
   }
 }
