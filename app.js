@@ -26,14 +26,11 @@
     const router = express.Router()
     const temperatures = require('./routes/temperature')
     const msgs = require('./routes/msg')
-<<<<<<< HEAD
 
     app.use('/', express.static('public'))
     app.get('/', (req, res) => {
         res.render('index.html')
     })
-=======
->>>>>>> 52c9dfd1dac5e080e7acde83529c2f02cb5bea17
 
     app.use('/main', router)
     app.use('/temperature', temperatures)
