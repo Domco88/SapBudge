@@ -4,6 +4,7 @@
     const path = require('path');
     const bodyParser = require('body-parser');
     const router = require('./server/router');
+    const client = require('./server/mqtt')
 
    
 // app variables
@@ -23,6 +24,9 @@
     app.use(bodyParser.urlencoded({ extended: true }));
     
     app.use(router)
+    //app.use(client)
+
+    app.use('/static', express.static('public'))
     
 
 // rest operations
@@ -33,6 +37,6 @@
 
 // server launch
 
-    app.listen(process.env.PORT || 4000, () => {
+    app.listen(process.env.PORT || 5000, () => {
         console.log("Magic happens on port 4000")
     });

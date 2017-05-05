@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+        google.charts.setOnLoadCallback(drawBasic);
+
+        function drawBasic() {
+
+            var jsonData = $.ajax({
+                url: "/api/temperature",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+
+
+            //  var jsonData;
+            // $.getJSON('/api/temperature', (result) => {
+            //     jsonData = result
+            // })
+
+
+            var parsedData = JSON.parse(jsonData)
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'time');
+            data.addColumn('number', 'temperature');
+
+            // jsonData.forEach(function (obj) { console.log(obj.id); });
+
+            for (var i in parsedData) {
+                var point = parsedData[i];
+                // var time = point.time;
+                var time = new Date(point.time);
+                var temperature = point.msg;
+                data.addRow([time, temperature]);
+            }
+
+            //data.addRows(obj);
+
+            var options = {
+                hAxis: {
+                    title: 'Time'
+                },
+                vAxis: {
+                    title: 'Temperature',
+                    minValue: 20,
+                    maxValue: 25
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+
+<body>
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+</body>
+
+</html>

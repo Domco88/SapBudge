@@ -1,56 +1,55 @@
-<vue-chart :columns="columns" :rows="rows" :options="options"></vue-chart>
-
+<template>
+<div>
+ <h2>hi there from Graph.vue</h2>
+  <div class="small">
+    <line-chart :chart-data="datacollection"></line-chart>
+    <button @click="fillData()">Randomize</button>
+  </div>
+  </div>
+</template>
 
 <script>
-        var rowData = [
-            ['1:00', 21],
-            ['6:21', 20],
-            ['11:43', 23],
-            ['17:14', 25]
-        ]
-        Vue.use(VueCharts);
-        Vue.use(VueResource);
-        new Vue({
-            el: 'app',
-            http: {
-                root: '/root',
-                headers: {
-                    Authorization: 'Basic YXBpOnBhc3N3b3Jk'
-                }
-            },
-            data: function () {
-                return {
-                    columns: [{
-                        'type': 'string',
-                        'label': 'Hour'
-                    }, {
-                        'type': 'number',
-                        'label': 'Temperature'
-                    }],
-                    rows: rowData,
-                    options: {
-                        title: 'Room Temperature',
-                        hAxis: {
-                            title: 'Hour',
-                            // minValue: '2004',
-                            // maxValue: '2007'
-                        },
-                        vAxis: {
-                            title: 'Temperature',
-                            minValue: 0,
-                            maxValue: 30
-                        },
-                        width: 900,
-                        height: 500,
-                        curveType: 'function'
-                    }
-                }
-            },
-            mounted: function () {
-                this.$http.get('/api/temperature').then(function (response) {
-                    rowData = response.body.result;
-                    console.log('hi there console !!')
-                })
+  import LineChart from './LineChart.js'
+
+  export default {
+    components: {
+      LineChart
+    },
+    data () {
+      return {
+        datacollection: null
+      }
+    },
+    mounted () {
+      this.fillData()
+    },
+    methods: {
+      fillData () {
+        this.datacollection = {
+          labels: [this.getRandomInt(), this.getRandomInt()],
+          datasets: [
+            {
+              label: 'Data One',
+              backgroundColor: '#f87979',
+              data: [this.getRandomInt(), this.getRandomInt()]
+            }, {
+              label: 'Data One',
+              backgroundColor: '#f87979',
+              data: [this.getRandomInt(), this.getRandomInt()]
             }
-        })
+          ]
+        }
+      },
+      getRandomInt () {
+        return Math.floor(Math.random() * (50 - 5 + 1)) + 5
+      }
+    }
+  }
 </script>
+
+<style>
+  .small {
+    max-width: 600px;
+    margin:  150px auto;
+  }
+</style>
