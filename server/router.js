@@ -11,7 +11,7 @@ const tempsProjection = {
 }
 
 var cutoff = new Date();
-cutoff.setDate(cutoff.getDate()-5);
+cutoff.setDate(cutoff.getDate()-1);
 
 router.get('/api/temp', function(req, res){
     db.Temperature
@@ -44,13 +44,12 @@ router.get('/api/temp', function(req, res){
 //     }
 // );
 
-router.get('/api/temperature', function(req, res){
-    db.Msg
+router.get('/api/temperatureS', function(req, res){
+    db.TemperatureS
         // .find( {'actual': true}, tempsProjection)
         .find({time: {$gt: cutoff}}  )
         .sort({ time: -1 })
-        .limit(20)
-        .select({ time: 1, msg: 1, _id: 0 })
+        .select({ time: 1, tempS: 1, _id: 0 })
         .exec( function(err, docs){
             if (err) {
                 console.log('tempsList err: '+ err);
@@ -61,21 +60,57 @@ router.get('/api/temperature', function(req, res){
     }
 );
 
-
-
-router.get('/api/mqtt', function(req, res){
-    db.Msg
-        .findOne()
-        .sort('-time')
+router.get('/api/humidityS', function(req, res){
+    db.HumidityS
+        // .find( {'actual': true}, tempsProjection)
+        .find({time: {$gt: cutoff}}  )
+        .sort({ time: -1 })
+        .select({ time: 1, humS: 1, _id: 0 })
         .exec( function(err, docs){
             if (err) {
-                console.log('mqtt err: '+ err);
+                console.log('humidityList err: '+ err);
                 return
             }
             res.json(docs)
          })
     }
 );
+
+router.get('/api/temperatureP', function(req, res){
+    db.TemperatureP
+        // .find( {'actual': true}, tempsProjection)
+        .find({time: {$gt: cutoff}}  )
+        .sort({ time: -1 })
+        .select({ time: 1, tempP: 1, _id: 0 })
+        .exec( function(err, docs){
+            if (err) {
+                console.log('tempsList err: '+ err);
+                return
+            }
+            res.json(docs)
+         })
+    }
+);
+
+router.get('/api/humidityP', function(req, res){
+    db.HumidityP
+        // .find( {'actual': true}, tempsProjection)
+        .find({time: {$gt: cutoff}}  )
+        .sort({ time: -1 })
+        .select({ time: 1, humP: 1, _id: 0 })
+        .exec( function(err, docs){
+            if (err) {
+                console.log('humidityList err: '+ err);
+                return
+            }
+            res.json(docs)
+         })
+    }
+);
+
+
+
+
 
 // router.get('/api/temps', (req, res) => {
 //     res.send(seed)

@@ -11,45 +11,62 @@
 
 
 // schema and models
-    const temperatureSchema = mongoose.Schema({
-        temperature: {type: Number, required: true},
-        time: { type: Date, default: Date.now },
-        actual: Boolean
-    })
+    // const temperatureSchema = mongoose.Schema({
+    //     temperature: {type: Number, required: true},
+    //     time: { type: Date, default: Date.now },
+    //     actual: Boolean
+    // })
 
-     const msgSchema = mongoose.Schema({
-        msg: {type: Number, required: true},
+     const temperatureSprchaSchema = mongoose.Schema({
+        tempS: {type: Number, required: true},
         time: { type: Date, default: Date.now }
     })
 
-    const humiditySchema = mongoose.Schema({
-        msg: {type: Number, required: true}, 
-        time: { type: Date, default: Data.now}
+     const temperaturePrackaSchema = mongoose.Schema({
+        tempP: {type: Number, required: true},
+        time: { type: Date, default: Date.now }
+    })
+
+    const humiditySprchaSchema = mongoose.Schema({
+        humS: {type: Number, required: true}, 
+        time: { type: Date, default: Date.now}
+    })
+
+    const humidityPrackaSchema = mongoose.Schema({
+        humP: {type: Number, required: true}, 
+        time: { type: Date, default: Date.now}
     })
 
 
     const Models = {
-        Msg:  mongoose.model('Msg', msgSchema),
-        Temperature: mongoose.model('Temperature', temperatureSchema),
-        Humidity: mongoose.model('Humidity', humiditySchema)
+        TemperatureS: mongoose.model('TemperatureS', temperatureSprchaSchema),
+        TemperatureP: mongoose.model('TemperatureP', temperaturePrackaSchema),
+        HumidityS: mongoose.model('HumidityS', humiditySprchaSchema),
+        HumidityP: mongoose.model('HumidityP', humidityPrackaSchema)
     }
 
 module.exports = Models
 // functions
-   module.exports.addTemperature = (newTemperature) => {
-        newTemperature.save((err) => {
+   module.exports.addTemperatureS = (newTempS) => {
+        newTempS.save((err) => {
             if (err) throw err
         })
     }
 
-    module.exports.addMsg = (newMsg) => {
-        newMsg.save((err) => {
+      module.exports.addTemperatureP = (newTempP) => {
+        newTempP.save((err) => {
             if (err) throw err
         })
     }
 
-    module.exports.addHumidity = ( newHumidity) => {
-        newHumidity.save((err) => {
+    module.exports.addHumidityS = ( newHumS) => {
+        newHumS.save((err) => {
+            if (err) throw err
+        })
+    }
+
+    module.exports.addHumidityP = ( newHumP) => {
+        newHumP.save((err) => {
             if (err) throw err
         })
     }

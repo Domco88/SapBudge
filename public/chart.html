@@ -10,46 +10,104 @@
 
         function drawBasic() {
 
-            var jsonData = $.ajax({
-                url: "/api/temperature",
+// SPRCHA
+
+            var temperatureDataS = $.ajax({
+                url: "/api/temperatureS",
                 dataType: "json",
                 async: false
             }).responseText;
 
+            var humidityDataS = $.ajax({
+                url: "/api/humidityS",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+            var parsedTemperatureS = JSON.parse(temperatureDataS)
+            var parsedHumidityS = JSON.parse(humidityDataS)
+            var assignedDataS = []
 
 
-            //  var jsonData;
-            // $.getJSON('/api/temperature', (result) => {
-            //     jsonData = result
-            // })
+            for (var i in parsedTemperatureS) {
+                tempS = parsedTemperatureS[i]
+                humS = parsedHumidityS[i]
 
 
-            var parsedData = JSON.parse(jsonData)
+                assignedDataS[i] = Object.assign(tempS, humS)
+            }
+
+            console.log(assignedDataS)
+
+// PRACKA -----------------------------
+
+              var temperatureDataP = $.ajax({
+                url: "/api/temperatureP",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+            var humidityDataP = $.ajax({
+                url: "/api/humidityP",
+                dataType: "json",
+                async: false
+            }).responseText;
+
+            var parsedTemperatureP = JSON.parse(temperatureDataP)
+            var parsedHumidityP = JSON.parse(humidityDataP)
+            var assignedDataP = []
+
+
+            for (var i in parsedTemperatureP) {
+                tempP = parsedTemperatureP[i]
+                humP = parsedHumidityP[i]
+
+
+                assignedDataP[i] = Object.assign(tempP, humP)
+            }
+
+            console.log(assignedDataP)
+
+// Graph filling ---------------------
 
             var data = new google.visualization.DataTable();
             data.addColumn('datetime', 'time');
-            data.addColumn('number', 'temperature');
+            data.addColumn('number', 'temperature sprcha');
+            data.addColumn('number', 'humidity sprcha');
+            data.addColumn('number', 'temperature pracka');
+            data.addColumn('number', 'humidity pracka');
 
             // jsonData.forEach(function (obj) { console.log(obj.id); });
 
-            for (var i in parsedData) {
-                var point = parsedData[i];
-                // var time = point.time;
-                var time = new Date(point.time);
-                var temperature = point.msg;
-                data.addRow([time, temperature]);
+            for (var i in assignedDataP) {
+                var pointS = assignedDataS[i];
+                var timeS = new Date(pointS.time);
+                var temperatureS = pointS.tempS;
+                var humidityS = pointS.humS;
+
+                var pointP = assignedDataP[i];
+                //var timeP = new Date(pointP.time);
+                var temperatureP = pointP.tempP ;
+                var humidityP = pointP.humP;
+                data.addRow([timeS, temperatureS, humidityS, temperatureP, humidityP]);
             }
 
             //data.addRows(obj);
 
             var options = {
+                animation: {
+                    "duration": 500,
+                    "startup": true
+                },
+                'width':800,
+                'height':300,
                 hAxis: {
                     title: 'Time'
                 },
                 vAxis: {
-                    title: 'Temperature',
-                    minValue: 20,
-                    maxValue: 25
+                    title: 'Temperature, humidity',
+                    // minValue: 20,
+                    // maxValue: 25
                 }
             };
 

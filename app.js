@@ -4,7 +4,11 @@
     const path = require('path');
     const bodyParser = require('body-parser');
     const router = require('./server/router');
-    const client = require('./server/mqtt')
+    const tempClientS = require('./server/mqtt/temperatureS')
+    const tempClientP = require('./server/mqtt/temperatureP')
+    const humClientS = require('./server/mqtt/humidityS')
+    const humClientP = require('./server/mqtt/humidityP')
+    const test = require('./server/assign')
 
    
 // app variables
